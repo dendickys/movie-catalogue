@@ -1,4 +1,4 @@
-package id.dendickys.moviecatalogue.ui;
+package id.dendickys.moviecatalogue.ui.fragment;
 
 
 import android.os.Bundle;

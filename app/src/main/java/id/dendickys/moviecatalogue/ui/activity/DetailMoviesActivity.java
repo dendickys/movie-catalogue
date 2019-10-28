@@ -1,4 +1,4 @@
-package id.dendickys.moviecatalogue;
+package id.dendickys.moviecatalogue.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,14 +16,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import id.dendickys.moviecatalogue.R;
 import id.dendickys.moviecatalogue.entity.Fav.FavMovies;
-import id.dendickys.moviecatalogue.entity.ItemMovies;
-import id.dendickys.moviecatalogue.viewmodels.MoviesViewModel;
+import id.dendickys.moviecatalogue.entity.Movies;
+import id.dendickys.moviecatalogue.viewmodel.MoviesViewModel;
 
-import static id.dendickys.moviecatalogue.MainActivity.favMoviesDb;
-import static id.dendickys.moviecatalogue.interfaces.ApiClient.BASE_URL_POSTER;
+import static id.dendickys.moviecatalogue.ui.activity.MainActivity.favMoviesDb;
+import static id.dendickys.moviecatalogue.helper.Constant.BASE_URL_POSTER;
 
 public class DetailMoviesActivity extends AppCompatActivity {
 
@@ -52,9 +53,9 @@ public class DetailMoviesActivity extends AppCompatActivity {
         MoviesViewModel detailMovieViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(MoviesViewModel.class);
         showLoading(true);
 
-        detailMovieViewModel.getAllMovies().observe(this, new Observer<ArrayList<ItemMovies>>() {
+        detailMovieViewModel.getAllMovies().observe(this, new Observer<List<Movies>>() {
             @Override
-            public void onChanged(ArrayList<ItemMovies> movies) {
+            public void onChanged(List<Movies> movies) {
                 if (movies != null) {
                     setDetailMovie();
                     showLoading(false);
@@ -77,7 +78,7 @@ public class DetailMoviesActivity extends AppCompatActivity {
     }
 
     private void setDetailMovie() {
-        ItemMovies movie = getIntent().getParcelableExtra(MOVIE_ID);
+        Movies movie = getIntent().getParcelableExtra(MOVIE_ID);
         assert movie != null;
         collapsingToolbarLayout.setTitle(movie.getTitle());
         Glide.with(getApplicationContext())

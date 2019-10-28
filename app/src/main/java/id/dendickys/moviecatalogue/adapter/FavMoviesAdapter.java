@@ -18,7 +18,7 @@ import java.util.List;
 import id.dendickys.moviecatalogue.R;
 import id.dendickys.moviecatalogue.entity.Fav.FavMovies;
 
-import static id.dendickys.moviecatalogue.interfaces.ApiClient.BASE_URL_POSTER;
+import static id.dendickys.moviecatalogue.helper.Constant.BASE_URL_POSTER;
 
 public class FavMoviesAdapter extends RecyclerView.Adapter<FavMoviesAdapter.FavMoviesViewHolder> {
 
@@ -51,7 +51,7 @@ public class FavMoviesAdapter extends RecyclerView.Adapter<FavMoviesAdapter.FavM
         ImageView imgPoster;
         TextView tvStar;
 
-        FavMoviesViewHolder(@NonNull View itemView) {
+        FavMoviesViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             imgPoster = itemView.findViewById(R.id.img_poster_movie);

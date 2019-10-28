@@ -2,24 +2,29 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_movies">
 
     <fragment
         android:id="@+id/navigation_movies"
-        android:name="id.dendickys.moviecatalogue.ui.MoviesFragment"
+        android:name="id.dendickys.moviecatalogue.ui.fragment.MoviesFragment"
         android:label="@string/title_movies"
         tools:layout="@layout/fragment_movies" />
 
     <fragment
         android:id="@+id/navigation_tv_show"
-        android:name="id.dendickys.moviecatalogue.ui.TvShowFragment"
+        android:name="id.dendickys.moviecatalogue.ui.fragment.TvShowFragment"
         android:label="@string/title_tv_show"
         tools:layout="@layout/fragment_tv_show" />
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="id.dendickys.moviecatalogue.ui.ContainerFragment"
+        android:name="id.dendickys.moviecatalogue.ui.fragment.ContainerFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_container" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="id.dendickys.moviecatalogue.ui.fragment.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

@@ -1,4 +1,4 @@
-package id.dendickys.moviecatalogue;
+package id.dendickys.moviecatalogue.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,12 +19,13 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import id.dendickys.moviecatalogue.R;
 import id.dendickys.moviecatalogue.entity.Fav.FavTvShow;
-import id.dendickys.moviecatalogue.entity.ItemTvShow;
-import id.dendickys.moviecatalogue.viewmodels.TvShowViewModel;
+import id.dendickys.moviecatalogue.entity.TvShow;
+import id.dendickys.moviecatalogue.viewmodel.TvShowViewModel;
 
-import static id.dendickys.moviecatalogue.MainActivity.favTvShowDb;
-import static id.dendickys.moviecatalogue.interfaces.ApiClient.BASE_URL_POSTER;
+import static id.dendickys.moviecatalogue.ui.activity.MainActivity.favTvShowDb;
+import static id.dendickys.moviecatalogue.helper.Constant.BASE_URL_POSTER;
 
 public class DetailTvShowActivity extends AppCompatActivity {
 
@@ -51,9 +52,9 @@ public class DetailTvShowActivity extends AppCompatActivity {
         TvShowViewModel tvShowViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(TvShowViewModel.class);
         showLoading(true);
 
-        tvShowViewModel.getAllTvShow().observe(this, new Observer<ArrayList<ItemTvShow>>() {
+        tvShowViewModel.getAllTvShow().observe(this, new Observer<ArrayList<TvShow>>() {
             @Override
-            public void onChanged(ArrayList<ItemTvShow> tvShows) {
+            public void onChanged(ArrayList<TvShow> tvShows) {
                 if (tvShows != null) {
                     setDetailTvShow();
                     showLoading(false);
@@ -76,7 +77,7 @@ public class DetailTvShowActivity extends AppCompatActivity {
     }
 
     private void setDetailTvShow() {
-        ItemTvShow tvShow = getIntent().getParcelableExtra(TV_SHOW_ID);
+        TvShow tvShow = getIntent().getParcelableExtra(TV_SHOW_ID);
         assert tvShow != null;
         collapsingToolbarLayout.setTitle(tvShow.getTitle());
         Glide.with(getApplicationContext())

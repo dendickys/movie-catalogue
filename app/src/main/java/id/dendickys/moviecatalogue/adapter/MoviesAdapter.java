@@ -13,19 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import id.dendickys.moviecatalogue.DetailMoviesActivity;
+import id.dendickys.moviecatalogue.ui.activity.DetailMoviesActivity;
 import id.dendickys.moviecatalogue.R;
-import id.dendickys.moviecatalogue.entity.ItemMovies;
+import id.dendickys.moviecatalogue.entity.Movies;
 
-import static id.dendickys.moviecatalogue.interfaces.ApiClient.BASE_URL_POSTER;
+import static id.dendickys.moviecatalogue.helper.Constant.BASE_URL_POSTER;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder> {
 
-    private ArrayList<ItemMovies> listMovies;
+    private List<Movies> listMovies;
 
-    public MoviesAdapter(ArrayList<ItemMovies> listMovies) {
+    public MoviesAdapter(List<Movies> listMovies) {
         this.listMovies = listMovies;
     }
 
@@ -67,12 +67,19 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
             });
         }
 
-        void bind(ItemMovies itemMovies) {
-            Glide.with(itemView.getContext())
-                    .load(BASE_URL_POSTER + "w185/" + itemMovies.getPoster_path())
-                    .apply(new RequestOptions()).override(100, 150)
-                    .into(imgPoster);
-            tvStar.setText(itemMovies.getVote_average());
+        void bind(Movies resultsMovies) {
+            if (resultsMovies.getPoster_path() != null) {
+                Glide.with(itemView.getContext())
+                        .load(BASE_URL_POSTER + "w185/" + resultsMovies.getPoster_path())
+                        .apply(new RequestOptions()).override(100, 150)
+                        .into(imgPoster);
+            } else {
+                Glide.with(itemView.getContext())
+                        .load(R.drawable.ic_no_image_white)
+                        .apply(new RequestOptions()).override(100, 150)
+                        .into(imgPoster);
+            }
+            tvStar.setText(resultsMovies.getVote_average());
         }
     }
 }

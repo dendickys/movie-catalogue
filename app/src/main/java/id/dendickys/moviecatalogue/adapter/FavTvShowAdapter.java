@@ -18,7 +18,7 @@ import java.util.List;
 import id.dendickys.moviecatalogue.R;
 import id.dendickys.moviecatalogue.entity.Fav.FavTvShow;
 
-import static id.dendickys.moviecatalogue.interfaces.ApiClient.BASE_URL_POSTER;
+import static id.dendickys.moviecatalogue.helper.Constant.BASE_URL_POSTER;
 
 public class FavTvShowAdapter extends RecyclerView.Adapter<FavTvShowAdapter.FavTvShowViewHolder> {
 

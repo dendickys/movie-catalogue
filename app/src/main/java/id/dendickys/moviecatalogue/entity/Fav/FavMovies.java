@@ -1,11 +1,14 @@
 package id.dendickys.moviecatalogue.entity.Fav;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "movies_favorites")
-public class FavMovies {
+public class FavMovies implements Parcelable {
     @PrimaryKey
     private int id;
     @ColumnInfo(name = "poster_path")
@@ -66,4 +69,43 @@ public class FavMovies {
     public void setOverview(String overview) {
         this.overview = overview;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.poster_path);
+        dest.writeString(this.title);
+        dest.writeString(this.release_date);
+        dest.writeString(this.vote_average);
+        dest.writeString(this.overview);
+    }
+
+    public FavMovies() {
+    }
+
+    private FavMovies(Parcel in) {
+        this.id = in.readInt();
+        this.poster_path = in.readString();
+        this.title = in.readString();
+        this.release_date = in.readString();
+        this.vote_average = in.readString();
+        this.overview = in.readString();
+    }
+
+    public static final Parcelable.Creator<FavMovies> CREATOR = new Parcelable.Creator<FavMovies>() {
+        @Override
+        public FavMovies createFromParcel(Parcel source) {
+            return new FavMovies(source);
+        }
+
+        @Override
+        public FavMovies[] newArray(int size) {
+            return new FavMovies[size];
+        }
+    };
 }

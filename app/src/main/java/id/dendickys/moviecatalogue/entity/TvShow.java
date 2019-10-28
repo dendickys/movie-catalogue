@@ -5,14 +5,14 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ItemMovies implements Parcelable {
+public class TvShow implements Parcelable {
     @SerializedName("id")
     private String id;
     @SerializedName("poster_path")
     private String poster_path;
-    @SerializedName("title")
+    @SerializedName("name")
     private String title;
-    @SerializedName("release_date")
+    @SerializedName("first_air_date")
     private String release_date;
     @SerializedName("vote_average")
     private String vote_average;
@@ -82,10 +82,10 @@ public class ItemMovies implements Parcelable {
         dest.writeString(this.overview);
     }
 
-    public ItemMovies() {
+    public TvShow() {
     }
 
-    private ItemMovies(Parcel in) {
+    TvShow(Parcel in) {
         this.id = in.readString();
         this.poster_path = in.readString();
         this.title = in.readString();
@@ -94,15 +94,15 @@ public class ItemMovies implements Parcelable {
         this.overview = in.readString();
     }
 
-    public static final Parcelable.Creator<ItemMovies> CREATOR = new Parcelable.Creator<ItemMovies>() {
+    public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {
         @Override
-        public ItemMovies createFromParcel(Parcel source) {
-            return new ItemMovies(source);
+        public TvShow createFromParcel(Parcel source) {
+            return new TvShow(source);
         }
 
         @Override
-        public ItemMovies[] newArray(int size) {
-            return new ItemMovies[size];
+        public TvShow[] newArray(int size) {
+            return new TvShow[size];
         }
     };
 }

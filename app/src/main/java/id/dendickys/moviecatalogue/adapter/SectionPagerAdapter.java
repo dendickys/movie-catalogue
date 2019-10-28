@@ -10,8 +10,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import id.dendickys.moviecatalogue.R;
-import id.dendickys.moviecatalogue.ui.MoviesFavFragment;
-import id.dendickys.moviecatalogue.ui.TvShowFavFragment;
+import id.dendickys.moviecatalogue.ui.fragment.MoviesFavFragment;
+import id.dendickys.moviecatalogue.ui.fragment.SettingsFragment;
+import id.dendickys.moviecatalogue.ui.fragment.TvShowFavFragment;
 
 public class SectionPagerAdapter extends FragmentPagerAdapter {
 
@@ -32,6 +33,8 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
                 return new MoviesFavFragment();
             case 1:
                 return new TvShowFavFragment();
+            case 2:
+                return new SettingsFragment();
             default:
                 return null;
         }

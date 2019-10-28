@@ -13,7 +13,7 @@ android {
         buildConfigField("String", "TMDB_API_KEY", '"320c6e292bcd195d89d1eea9d49225d4"')
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = ["room.schemaLocation":"$projectDir/schemas".toString()]
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
     }

@@ -1,4 +1,4 @@
-package id.dendickys.moviecatalogue.ui;
+package id.dendickys.moviecatalogue.ui.fragment;
 
 
 import android.content.res.Configuration;
@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -21,7 +20,7 @@ import id.dendickys.moviecatalogue.R;
 import id.dendickys.moviecatalogue.adapter.FavTvShowAdapter;
 import id.dendickys.moviecatalogue.entity.Fav.FavTvShow;
 
-import static id.dendickys.moviecatalogue.MainActivity.favTvShowDb;
+import static id.dendickys.moviecatalogue.ui.activity.MainActivity.favTvShowDb;
 
 /**
  * A simple {@link Fragment} subclass.

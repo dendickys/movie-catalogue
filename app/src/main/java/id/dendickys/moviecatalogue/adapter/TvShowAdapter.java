@@ -15,17 +15,17 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
-import id.dendickys.moviecatalogue.DetailTvShowActivity;
+import id.dendickys.moviecatalogue.ui.activity.DetailTvShowActivity;
 import id.dendickys.moviecatalogue.R;
-import id.dendickys.moviecatalogue.entity.ItemTvShow;
+import id.dendickys.moviecatalogue.entity.TvShow;
 
-import static id.dendickys.moviecatalogue.interfaces.ApiClient.BASE_URL_POSTER;
+import static id.dendickys.moviecatalogue.helper.Constant.BASE_URL_POSTER;
 
 public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder> {
 
-    private ArrayList<ItemTvShow> listTvShow;
+    private ArrayList<TvShow> listTvShow;
 
-    public TvShowAdapter(ArrayList<ItemTvShow> listTvShow) {
+    public TvShowAdapter(ArrayList<TvShow> listTvShow) {
         this.listTvShow = listTvShow;
     }
 
@@ -67,11 +67,18 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
             });
         }
 
-        void bind(ItemTvShow itemTvShow) {
-            Glide.with(itemView.getContext())
-                    .load(BASE_URL_POSTER + "w185/" + itemTvShow.getPoster_path())
-                    .apply(new RequestOptions()).override(100, 150)
-                    .into(imgPoster);
+        void bind(TvShow itemTvShow) {
+            if (itemTvShow.getPoster_path() != null) {
+                Glide.with(itemView.getContext())
+                        .load(BASE_URL_POSTER + "w185/" + itemTvShow.getPoster_path())
+                        .apply(new RequestOptions()).override(100, 150)
+                        .into(imgPoster);
+            } else {
+                Glide.with(itemView.getContext())
+                        .load(R.drawable.ic_no_image_white)
+                        .apply(new RequestOptions()).override(100, 150)
+                        .into(imgPoster);
+            }
             tvStar.setText(itemTvShow.getVote_average());
         }
     }

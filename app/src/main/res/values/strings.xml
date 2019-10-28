@@ -3,6 +3,7 @@
     <string name="title_movies">Movies</string>
     <string name="title_tv_show">Tv Show</string>
     <string name="title_favorites">Favorites</string>
+    <string name="title_settings">Settings</string>
     <string name="tab_favorites_movies">Movies</string>
     <string name="tab_favorites_tv_show">Tv Show</string>
     <string name="contentDescription">This is poster image</string>
@@ -12,4 +13,10 @@
     <string name="vote_average">Vote Average</string>
     <string name="added_to_favorite">Added to Favorite</string>
     <string name="removed_from_favorite">Removed from Favorite</string>
+    <string name="search_title">Search</string>
+    <string name="search_movies_hint">Search Movie</string>
+    <string name="search_tvshow_hint">Search Tv Show</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
