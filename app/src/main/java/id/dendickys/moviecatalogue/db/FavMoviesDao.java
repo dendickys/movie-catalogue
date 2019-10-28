@@ -1,4 +1,4 @@
-package id.dendickys.moviecatalogue.interfaces;
+package id.dendickys.moviecatalogue.db;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

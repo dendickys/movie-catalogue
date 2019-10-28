@@ -1,17 +1,17 @@
 package id.dendickys.moviecatalogue.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -22,9 +22,10 @@ import id.dendickys.moviecatalogue.R;
 import id.dendickys.moviecatalogue.entity.Fav.FavMovies;
 import id.dendickys.moviecatalogue.entity.Movies;
 import id.dendickys.moviecatalogue.viewmodel.MoviesViewModel;
+import id.dendickys.moviecatalogue.widget.FavoriteMovieWidget;
 
-import static id.dendickys.moviecatalogue.ui.activity.MainActivity.favMoviesDb;
 import static id.dendickys.moviecatalogue.helper.Constant.BASE_URL_POSTER;
+import static id.dendickys.moviecatalogue.ui.activity.MainActivity.favMoviesDb;
 
 public class DetailMoviesActivity extends AppCompatActivity {
 
@@ -118,10 +119,12 @@ public class DetailMoviesActivity extends AppCompatActivity {
                 if (favMoviesDb.favMoviesDao().isFavorite(id) == 1) {
                     mFavorite.setImageResource(R.drawable.ic_favorite_border_black);
                     favMoviesDb.favMoviesDao().deleteFavMovies(favMovies);
+                    FavoriteMovieWidget.updateWidget(getApplicationContext());
                     Toast.makeText(DetailMoviesActivity.this, R.string.removed_from_favorite, Toast.LENGTH_SHORT).show();
                 } else {
                     mFavorite.setImageResource(R.drawable.ic_favorite_pink);
                     favMoviesDb.favMoviesDao().addFavMovies(favMovies);
+                    FavoriteMovieWidget.updateWidget(getApplicationContext());
                     Toast.makeText(DetailMoviesActivity.this, R.string.added_to_favorite, Toast.LENGTH_SHORT).show();
                 }
             }

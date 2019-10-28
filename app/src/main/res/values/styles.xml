@@ -31,5 +31,5 @@
     <style name="TextContent.Small.White">
         <item name="android:textColor">@android:color/white</item>
     </style>
-    
+
 </resources>

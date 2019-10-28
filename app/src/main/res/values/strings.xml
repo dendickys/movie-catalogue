@@ -16,7 +16,6 @@
     <string name="search_title">Search</string>
     <string name="search_movies_hint">Search Movie</string>
     <string name="search_tvshow_hint">Search Tv Show</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty_text">NO DATA</string>
+    <string name="favorite_movies">FAVORITE MOVIES</string>
 </resources>

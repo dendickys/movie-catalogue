@@ -68,14 +68,14 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
         }
 
         void bind(TvShow itemTvShow) {
-            if (itemTvShow.getPoster_path() != null) {
+            if (itemTvShow.getPoster_path() == null) {
                 Glide.with(itemView.getContext())
-                        .load(BASE_URL_POSTER + "w185/" + itemTvShow.getPoster_path())
+                        .load(R.drawable.ic_no_image_white)
                         .apply(new RequestOptions()).override(100, 150)
                         .into(imgPoster);
             } else {
                 Glide.with(itemView.getContext())
-                        .load(R.drawable.ic_no_image_white)
+                        .load(BASE_URL_POSTER + "w185/" + itemTvShow.getPoster_path())
                         .apply(new RequestOptions()).override(100, 150)
                         .into(imgPoster);
             }
