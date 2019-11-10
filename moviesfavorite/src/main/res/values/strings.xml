@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Movies Favorite</string>
+    <string name="title_movies">Movies</string>
+    <string name="contentDescription">This is poster image</string>
+</resources>

@@ -1,5 +1,7 @@
 package id.dendickys.moviecatalogue.ui.activity;
 
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +26,13 @@ import id.dendickys.moviecatalogue.entity.Movies;
 import id.dendickys.moviecatalogue.viewmodel.MoviesViewModel;
 import id.dendickys.moviecatalogue.widget.FavoriteMovieWidget;
 
+import static id.dendickys.moviecatalogue.db.DatabaseContract.FavMoviesColumns.CONTENT_URI;
+import static id.dendickys.moviecatalogue.db.DatabaseContract.FavMoviesColumns.OVERVIEW;
+import static id.dendickys.moviecatalogue.db.DatabaseContract.FavMoviesColumns.POSTER_PATH;
+import static id.dendickys.moviecatalogue.db.DatabaseContract.FavMoviesColumns.RELEASE_DATE;
+import static id.dendickys.moviecatalogue.db.DatabaseContract.FavMoviesColumns.TITLE;
+import static id.dendickys.moviecatalogue.db.DatabaseContract.FavMoviesColumns.VOTE_AVERAGE;
+import static id.dendickys.moviecatalogue.db.DatabaseContract.FavMoviesColumns._ID;
 import static id.dendickys.moviecatalogue.helper.Constant.BASE_URL_POSTER;
 import static id.dendickys.moviecatalogue.ui.activity.MainActivity.favMoviesDb;
 
@@ -116,15 +125,32 @@ public class DetailMoviesActivity extends AppCompatActivity {
                 favMovies.setVote_average(vote_average);
                 favMovies.setOverview(overview);
 
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(_ID, id);
+                contentValues.put(POSTER_PATH, poster_path);
+                contentValues.put(TITLE, title);
+                contentValues.put(RELEASE_DATE, release_date);
+                contentValues.put(VOTE_AVERAGE, vote_average);
+                contentValues.put(OVERVIEW, overview);
+
                 if (favMoviesDb.favMoviesDao().isFavorite(id) == 1) {
                     mFavorite.setImageResource(R.drawable.ic_favorite_border_black);
                     favMoviesDb.favMoviesDao().deleteFavMovies(favMovies);
+
                     FavoriteMovieWidget.updateWidget(getApplicationContext());
+
+                    Uri uri = Uri.parse(CONTENT_URI + "/" + id);
+                    getContentResolver().delete(uri, null, null);
+
                     Toast.makeText(DetailMoviesActivity.this, R.string.removed_from_favorite, Toast.LENGTH_SHORT).show();
                 } else {
                     mFavorite.setImageResource(R.drawable.ic_favorite_pink);
                     favMoviesDb.favMoviesDao().addFavMovies(favMovies);
+
                     FavoriteMovieWidget.updateWidget(getApplicationContext());
+
+                    getContentResolver().insert(CONTENT_URI, contentValues);
+
                     Toast.makeText(DetailMoviesActivity.this, R.string.added_to_favorite, Toast.LENGTH_SHORT).show();
                 }
             }

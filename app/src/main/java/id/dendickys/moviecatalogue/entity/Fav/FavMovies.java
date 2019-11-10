@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "movies_favorites")
@@ -14,13 +15,23 @@ public class FavMovies implements Parcelable {
     @ColumnInfo(name = "poster_path")
     private String poster_path;
     @ColumnInfo(name = "title")
-    private String title;
+    public String title;
     @ColumnInfo(name = "release_date")
     private String release_date;
     @ColumnInfo(name = "vote_average")
     private String vote_average;
     @ColumnInfo(name = "overview")
     private String overview;
+
+    @Ignore
+    public FavMovies(int id, String poster_path, String title, String release_date, String vote_average, String overview) {
+        this.id = id;
+        this.poster_path = poster_path;
+        this.title = title;
+        this.release_date = release_date;
+        this.vote_average = vote_average;
+        this.overview = overview;
+    }
 
     public int getId() {
         return id;
@@ -88,7 +99,7 @@ public class FavMovies implements Parcelable {
     public FavMovies() {
     }
 
-    private FavMovies(Parcel in) {
+    protected FavMovies(Parcel in) {
         this.id = in.readInt();
         this.poster_path = in.readString();
         this.title = in.readString();
@@ -97,7 +108,7 @@ public class FavMovies implements Parcelable {
         this.overview = in.readString();
     }
 
-    public static final Parcelable.Creator<FavMovies> CREATOR = new Parcelable.Creator<FavMovies>() {
+    public static final Creator<FavMovies> CREATOR = new Creator<FavMovies>() {
         @Override
         public FavMovies createFromParcel(Parcel source) {
             return new FavMovies(source);

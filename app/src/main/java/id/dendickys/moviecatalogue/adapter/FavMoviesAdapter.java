@@ -1,6 +1,5 @@
 package id.dendickys.moviecatalogue.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,22 +22,36 @@ import static id.dendickys.moviecatalogue.helper.Constant.BASE_URL_POSTER;
 public class FavMoviesAdapter extends RecyclerView.Adapter<FavMoviesAdapter.FavMoviesViewHolder> {
 
     private List<FavMovies> favMovies;
-    private Context mContext;
 
-    public FavMoviesAdapter(List<FavMovies> favMovies, Context context) {
+    public FavMoviesAdapter(List<FavMovies> favMovies) {
         this.favMovies = favMovies;
-        this.mContext = context;
     }
+
+    /*public FavMoviesAdapter(Context context) {
+        this.context = context;
+    }
+
+    public ArrayList<FavMovies> getFavMovies() {
+        return favMovies;
+    }
+
+    public void setListFavMovies(List<FavMovies> listFavMovies) {
+        if (listFavMovies.size() > 0) {
+            this.favMovies.clear();
+        }
+        this.favMovies.addAll(listFavMovies);
+        notifyDataSetChanged();
+    }*/
 
     @NonNull
     @Override
-    public FavMoviesAdapter.FavMoviesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavMoviesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movies, parent, false);
         return new FavMoviesViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavMoviesAdapter.FavMoviesViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavMoviesViewHolder holder, int position) {
         holder.bind(favMovies.get(position));
     }
 

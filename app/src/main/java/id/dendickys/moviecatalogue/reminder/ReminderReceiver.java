@@ -26,17 +26,21 @@ import id.dendickys.moviecatalogue.R;
 import id.dendickys.moviecatalogue.entity.Movies;
 import id.dendickys.moviecatalogue.interfaces.RetrofitInterface;
 import id.dendickys.moviecatalogue.network.RetrofitClient;
+import id.dendickys.moviecatalogue.ui.activity.MainActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReminderReceiver extends BroadcastReceiver {
 
-    public static final String TYPE_DAILY_REMINDER = "DailyReminder";
-    public static final String TYPE_RELEASE_TODAY = "ReleaseToday";
+    public static final String TYPE_DAILY_REMINDER = "Daily Reminder";
+    public static final String TYPE_RELEASE_TODAY = "Release Today";
     public static final String EXTRA_TITLE = "extra_title";
     public static final String EXTRA_MESSAGE = "message";
-    private String title, message;
+    public static final String EXTRA_TYPE = "type";
+    private String title;
+    private String message;
+    private int notifId;
 
     private String TIME_FORMAT = "HH:mm";
 
@@ -48,15 +52,18 @@ public class ReminderReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String type = intent.getStringExtra(EXTRA_TYPE);
         message = intent.getStringExtra(EXTRA_MESSAGE);
-        title = intent.getStringExtra(EXTRA_TITLE);
+
+        assert type != null;
+        title = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? TYPE_DAILY_REMINDER : TYPE_RELEASE_TODAY;
+        notifId = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? ID_DAILY_REMINDER : ID_RELEASE_REMINDER;
 
         assert message != null;
         if (message.equalsIgnoreCase(EXTRA_MESSAGE)) {
             getReleaseToday(context);
         } else {
-            title = "Daily Reminder";
-            showReminderNotification(context, title, message);
+            showReminderNotification(context, title, message, notifId);
         }
     }
 
@@ -64,6 +71,8 @@ public class ReminderReceiver extends BroadcastReceiver {
         String DATE_FORMAT = "yyyy-MM-dd";
         SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
         String currentDate = df.format(new Date());
+
+        int requestCode = message.equalsIgnoreCase(EXTRA_MESSAGE) ? ID_RELEASE_REMINDER : ID_DAILY_REMINDER;
 
         RetrofitInterface api = RetrofitClient.getClient().create(RetrofitInterface.class);
         Call<Movies> call = api.getMoviesReleaseToday(currentDate);
@@ -74,8 +83,7 @@ public class ReminderReceiver extends BroadcastReceiver {
                 Movies movies = response.body();
                 assert movies != null;
                 message = message + movies.getTitle();
-                title = "Release Today Reminder";
-                showReminderNotification(context, title, message);
+                showReminderNotification(context, title, message, notifId);
             }
 
             @Override
@@ -85,11 +93,11 @@ public class ReminderReceiver extends BroadcastReceiver {
         });
     }
 
-    private void showReminderNotification(Context context, String title, String message) {
+    private void showReminderNotification(Context context, String title, String message, int notifId) {
         String CHANNEL_ID = "Channel_1";
         String CHANNEL_NAME = "Reminder Channel";
 
-        int requestCode = message.equalsIgnoreCase(EXTRA_MESSAGE) ? ID_DAILY_REMINDER : ID_RELEASE_REMINDER;
+        int requestCode = message.equalsIgnoreCase(EXTRA_MESSAGE) ? ID_RELEASE_REMINDER : ID_DAILY_REMINDER;
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Uri reminderSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -119,16 +127,17 @@ public class ReminderReceiver extends BroadcastReceiver {
         Notification notification = builder.build();
 
         if (notificationManager != null) {
-            notificationManager.notify(requestCode, notification);
+            notificationManager.notify(notifId, notification);
         }
     }
 
-    public void setDailyReminder(Context context, String time, String message) {
+    public void setDailyReminder(Context context, String type, String time, String message) {
         if (isDateInvalid(time, TIME_FORMAT)) return;
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderReceiver.class);
         intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(EXTRA_TYPE, type);
 
         String[] timeArray = time.split(":");
 
@@ -143,12 +152,13 @@ public class ReminderReceiver extends BroadcastReceiver {
         }
     }
 
-    public void setReleaseTodayReminder(Context context, String time, String message) {
+    public void setReleaseTodayReminder(Context context, String type, String time, String message) {
         if (isDateInvalid(time, TIME_FORMAT)) return;
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderReceiver.class);
         intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(EXTRA_TYPE, type);
 
         String[] timeArray = time.split(":");
 
@@ -163,10 +173,11 @@ public class ReminderReceiver extends BroadcastReceiver {
         }
     }
 
-    public void cancelDailyReminder(Context context) {
+    public void cancelDailyReminder(Context context, String type) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_DAILY_REMINDER, intent, 0);
+        int requestCode = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? ID_DAILY_REMINDER : ID_RELEASE_REMINDER;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
         pendingIntent.cancel();
 
         if (alarmManager != null) {
@@ -174,10 +185,11 @@ public class ReminderReceiver extends BroadcastReceiver {
         }
     }
 
-    public void cancelReleaseTodayReminder(Context context) {
+    public void cancelReleaseTodayReminder(Context context, String type) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_RELEASE_REMINDER, intent, 0);
+        int requestCode = type.equalsIgnoreCase(TYPE_RELEASE_TODAY) ? ID_RELEASE_REMINDER : ID_DAILY_REMINDER;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
         pendingIntent.cancel();
 
         if (alarmManager != null) {

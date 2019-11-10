@@ -14,10 +14,12 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import id.dendickys.moviecatalogue.R;
+import id.dendickys.moviecatalogue.entity.NotificationItem;
 import id.dendickys.moviecatalogue.reminder.ReminderReceiver;
 import id.dendickys.moviecatalogue.reminder.SettingPreference;
 
@@ -30,6 +32,12 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private SwitchCompat switchDailyReminder, switchReleaseToday;
     private ReminderReceiver reminderReceiver;
     private SettingPreference settingPreference;
+
+    private int idNotification = 0;
+    private final List<NotificationItem> stackNotif = new ArrayList<>();
+    private static final CharSequence CHANNEL_NAME = "dendickys channel";
+    private final static String GROUP_KEY_EMAILS = "group_key_emails";
+    private final static int NOTIFICATION_REQUEST_CODE = 200;
 
     public SettingsFragment() {
     }
@@ -61,22 +69,22 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             case R.id.switch_daily_reminder:
                 if (switchDailyReminder.isChecked()) {
                     settingPreference.saveBoolean(SettingPreference.STATUS_DAILY_REMINDER, true);
-                    reminderReceiver.setDailyReminder(getContext(), "01:45", getString(R.string.daily_reminder_message));
+                    reminderReceiver.setDailyReminder(getContext(), ReminderReceiver.TYPE_DAILY_REMINDER, "18:53", getString(R.string.daily_reminder_message));
                     Toast.makeText(getContext(), getString(R.string.daily_reminder_enabled), Toast.LENGTH_SHORT).show();
                 } else {
                     settingPreference.saveBoolean(SettingPreference.STATUS_DAILY_REMINDER, false);
-                    reminderReceiver.cancelDailyReminder(Objects.requireNonNull(getContext()));
+                    reminderReceiver.cancelDailyReminder(Objects.requireNonNull(getContext()), ReminderReceiver.TYPE_DAILY_REMINDER);
                     Toast.makeText(getContext(), getString(R.string.daily_reminder_disabled), Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.switch_release_today:
                 if (switchReleaseToday.isChecked()) {
                     settingPreference.saveBoolean(SettingPreference.STATUS_RELEASE_TODAY, true);
-                    reminderReceiver.setReleaseTodayReminder(getContext(), "01:46", getString(R.string.release_today_message));
+                    reminderReceiver.setReleaseTodayReminder(getContext(), ReminderReceiver.TYPE_RELEASE_TODAY, "18:54", ReminderReceiver.EXTRA_MESSAGE);
                     Toast.makeText(getContext(), getString(R.string.release_today_enabled), Toast.LENGTH_SHORT).show();
                 } else {
                     settingPreference.saveBoolean(SettingPreference.STATUS_RELEASE_TODAY, false);
-                    reminderReceiver.cancelReleaseTodayReminder(Objects.requireNonNull(getContext()));
+                    reminderReceiver.cancelReleaseTodayReminder(Objects.requireNonNull(getContext()), ReminderReceiver.TYPE_RELEASE_TODAY);
                     Toast.makeText(getContext(), getString(R.string.release_today_disabled), Toast.LENGTH_SHORT).show();
                 }
                 break;
