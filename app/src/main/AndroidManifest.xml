@@ -22,6 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
         <provider
             android:name=".provider.FavMoviesProvider"
             android:authorities="id.dendickys.moviecatalogue"
@@ -30,7 +31,11 @@
             android:writePermission="id.dendickys.moviecatalogue.WRITE_DATABASE" />
 
         <receiver
-            android:name=".reminder.ReminderReceiver"
+            android:name=".reminder.DailyReminderReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".reminder.ReleaseTodayReceiver"
             android:enabled="true"
             android:exported="true" />
 

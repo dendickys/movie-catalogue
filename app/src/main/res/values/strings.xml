@@ -25,7 +25,6 @@
     <string name="daily_reminder_disabled">Daily Reminder Disabled</string>
     <string name="release_today_reminder">Release Today Reminder</string>
     <string name="release_today_reminder_note">Release Today Reminder, mengirimkan notifikasi ke pengguna semua film yang rilis hari ini</string>
-    <string name="release_today_message">Wow! ada film baru release. Ayo segera! buka Aplikasi Movie Catalogue</string>
     <string name="release_today_enabled">Release Today Reminder Enabled</string>
     <string name="release_today_disabled">Release Today Reminder Disabled</string>
 </resources>

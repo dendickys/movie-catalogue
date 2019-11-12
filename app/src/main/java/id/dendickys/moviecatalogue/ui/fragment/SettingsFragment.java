@@ -14,13 +14,11 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import id.dendickys.moviecatalogue.R;
-import id.dendickys.moviecatalogue.entity.NotificationItem;
-import id.dendickys.moviecatalogue.reminder.ReminderReceiver;
+import id.dendickys.moviecatalogue.reminder.DailyReminderReceiver;
+import id.dendickys.moviecatalogue.reminder.ReleaseTodayReceiver;
 import id.dendickys.moviecatalogue.reminder.SettingPreference;
 
 /**
@@ -30,14 +28,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     private Toolbar toolbar;
     private SwitchCompat switchDailyReminder, switchReleaseToday;
-    private ReminderReceiver reminderReceiver;
+    private DailyReminderReceiver dailyReminderReceiver;
+    private ReleaseTodayReceiver releaseTodayReceiver;
     private SettingPreference settingPreference;
-
-    private int idNotification = 0;
-    private final List<NotificationItem> stackNotif = new ArrayList<>();
-    private static final CharSequence CHANNEL_NAME = "dendickys channel";
-    private final static String GROUP_KEY_EMAILS = "group_key_emails";
-    private final static int NOTIFICATION_REQUEST_CODE = 200;
 
     public SettingsFragment() {
     }
@@ -54,7 +47,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         onBind(view);
         setUpToolbar();
-        reminderReceiver = new ReminderReceiver();
+        dailyReminderReceiver = new DailyReminderReceiver();
+        releaseTodayReceiver = new ReleaseTodayReceiver();
         settingPreference = new SettingPreference(Objects.requireNonNull(getContext()));
 
         switchDailyReminder.setOnClickListener(this);
@@ -69,22 +63,22 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             case R.id.switch_daily_reminder:
                 if (switchDailyReminder.isChecked()) {
                     settingPreference.saveBoolean(SettingPreference.STATUS_DAILY_REMINDER, true);
-                    reminderReceiver.setDailyReminder(getContext(), ReminderReceiver.TYPE_DAILY_REMINDER, "18:53", getString(R.string.daily_reminder_message));
+                    dailyReminderReceiver.setDailyReminder(getContext(), "07:00");
                     Toast.makeText(getContext(), getString(R.string.daily_reminder_enabled), Toast.LENGTH_SHORT).show();
                 } else {
                     settingPreference.saveBoolean(SettingPreference.STATUS_DAILY_REMINDER, false);
-                    reminderReceiver.cancelDailyReminder(Objects.requireNonNull(getContext()), ReminderReceiver.TYPE_DAILY_REMINDER);
+                    dailyReminderReceiver.cancelDailyReminder(Objects.requireNonNull(getContext()));
                     Toast.makeText(getContext(), getString(R.string.daily_reminder_disabled), Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.switch_release_today:
                 if (switchReleaseToday.isChecked()) {
                     settingPreference.saveBoolean(SettingPreference.STATUS_RELEASE_TODAY, true);
-                    reminderReceiver.setReleaseTodayReminder(getContext(), ReminderReceiver.TYPE_RELEASE_TODAY, "18:54", ReminderReceiver.EXTRA_MESSAGE);
+                    releaseTodayReceiver.setReleaseTodayReminder(getContext(), "23:46");
                     Toast.makeText(getContext(), getString(R.string.release_today_enabled), Toast.LENGTH_SHORT).show();
                 } else {
                     settingPreference.saveBoolean(SettingPreference.STATUS_RELEASE_TODAY, false);
-                    reminderReceiver.cancelReleaseTodayReminder(Objects.requireNonNull(getContext()), ReminderReceiver.TYPE_RELEASE_TODAY);
+                    releaseTodayReceiver.cancelReleaseTodayReminder(Objects.requireNonNull(getContext()));
                     Toast.makeText(getContext(), getString(R.string.release_today_disabled), Toast.LENGTH_SHORT).show();
                 }
                 break;

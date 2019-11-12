@@ -10,8 +10,12 @@ import androidx.room.Room;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import id.dendickys.moviecatalogue.R;
 import id.dendickys.moviecatalogue.db.FavDb;
+import id.dendickys.moviecatalogue.entity.NotificationItem;
 
 public class MainActivity extends AppCompatActivity {
 

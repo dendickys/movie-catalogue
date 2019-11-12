@@ -2,13 +2,13 @@ package id.dendickys.moviecatalogue.entity;
 
 public class NotificationItem {
     private int id;
-    private String sender;
-    private String message;
+    private String title;
+    private String overview;
 
-    public NotificationItem(int id, String sender, String message) {
+    public NotificationItem(int id, String title, String overview) {
         this.id = id;
-        this.sender = sender;
-        this.message = message;
+        this.title = title;
+        this.overview = overview;
     }
 
     public int getId() {
@@ -19,19 +19,19 @@ public class NotificationItem {
         this.id = id;
     }
 
-    public String getSender() {
-        return sender;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getMessage() {
-        return message;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 }

@@ -24,5 +24,5 @@ public interface RetrofitInterface {
     Call<ResultsTvShow> getTvShow(@Query("query") String query);
 
     @GET("discover/movie?api_key=" + API_KEY + "&primary_release_date.gte=TODAY DATE&primary_release_date.lte=TODAY DATE")
-    Call<Movies> getMoviesReleaseToday(@Query("TODAY_DATE") String todayDate);
+    Call<ResultsMovies> getMoviesReleaseToday(@Query("TODAY_DATE") String todayDate);
 }
