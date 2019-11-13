@@ -1,10 +1,13 @@
 package id.dendickys.moviecatalogue.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,23 +20,16 @@ import androidx.fragment.app.Fragment;
 import java.util.Objects;
 
 import id.dendickys.moviecatalogue.R;
-import id.dendickys.moviecatalogue.reminder.DailyReminderReceiver;
-import id.dendickys.moviecatalogue.reminder.ReleaseTodayReceiver;
+import id.dendickys.moviecatalogue.reminder.ReminderReceiver;
 import id.dendickys.moviecatalogue.reminder.SettingPreference;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     private Toolbar toolbar;
+    private ImageButton imageButton;
     private SwitchCompat switchDailyReminder, switchReleaseToday;
-    private DailyReminderReceiver dailyReminderReceiver;
-    private ReleaseTodayReceiver releaseTodayReceiver;
+    private ReminderReceiver reminderReceiver;
     private SettingPreference settingPreference;
-
-    public SettingsFragment() {
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,12 +43,13 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         onBind(view);
         setUpToolbar();
-        dailyReminderReceiver = new DailyReminderReceiver();
-        releaseTodayReceiver = new ReleaseTodayReceiver();
+        reminderReceiver = new ReminderReceiver();
+
         settingPreference = new SettingPreference(Objects.requireNonNull(getContext()));
 
         switchDailyReminder.setOnClickListener(this);
         switchReleaseToday.setOnClickListener(this);
+        imageButton.setOnClickListener(this);
 
         checkReminderStatus();
     }
@@ -63,24 +60,30 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             case R.id.switch_daily_reminder:
                 if (switchDailyReminder.isChecked()) {
                     settingPreference.saveBoolean(SettingPreference.STATUS_DAILY_REMINDER, true);
-                    dailyReminderReceiver.setDailyReminder(getContext(), "07:00");
+                    reminderReceiver.setDailyReminder(getContext(), ReminderReceiver.TYPE_DAILY_REMINDER,
+                            "07:00", getString(R.string.daily_reminder_message));
                     Toast.makeText(getContext(), getString(R.string.daily_reminder_enabled), Toast.LENGTH_SHORT).show();
                 } else {
                     settingPreference.saveBoolean(SettingPreference.STATUS_DAILY_REMINDER, false);
-                    dailyReminderReceiver.cancelDailyReminder(Objects.requireNonNull(getContext()));
+                    reminderReceiver.cancelDailyReminder(Objects.requireNonNull(getContext()));
                     Toast.makeText(getContext(), getString(R.string.daily_reminder_disabled), Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.switch_release_today:
                 if (switchReleaseToday.isChecked()) {
                     settingPreference.saveBoolean(SettingPreference.STATUS_RELEASE_TODAY, true);
-                    releaseTodayReceiver.setReleaseTodayReminder(getContext(), "23:46");
+                    reminderReceiver.setReleaseTodayReminder(getContext(), ReminderReceiver.TYPE_NEW_RELEASE,
+                            "08:00", getString(R.string.release_today_reminder));
                     Toast.makeText(getContext(), getString(R.string.release_today_enabled), Toast.LENGTH_SHORT).show();
                 } else {
                     settingPreference.saveBoolean(SettingPreference.STATUS_RELEASE_TODAY, false);
-                    releaseTodayReceiver.cancelReleaseTodayReminder(Objects.requireNonNull(getContext()));
+                    reminderReceiver.cancelReleaseTodayReminder(Objects.requireNonNull(getContext()));
                     Toast.makeText(getContext(), getString(R.string.release_today_disabled), Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.btn_settings_language:
+                Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(intent);
                 break;
         }
     }
@@ -108,6 +111,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     private void onBind(View view) {
         toolbar = view.findViewById(R.id.toolbar_settings);
+        imageButton = view.findViewById(R.id.btn_settings_language);
         switchDailyReminder = view.findViewById(R.id.switch_daily_reminder);
         switchReleaseToday = view.findViewById(R.id.switch_release_today);
     }

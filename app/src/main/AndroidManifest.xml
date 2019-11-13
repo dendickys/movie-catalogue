@@ -23,6 +23,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <provider
             android:name=".provider.FavMoviesProvider"
             android:authorities="id.dendickys.moviecatalogue"
@@ -31,11 +41,7 @@
             android:writePermission="id.dendickys.moviecatalogue.WRITE_DATABASE" />
 
         <receiver
-            android:name=".reminder.DailyReminderReceiver"
-            android:enabled="true"
-            android:exported="true" />
-        <receiver
-            android:name=".reminder.ReleaseTodayReceiver"
+            android:name=".reminder.ReminderReceiver"
             android:enabled="true"
             android:exported="true" />
 
@@ -65,7 +71,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
             <meta-data

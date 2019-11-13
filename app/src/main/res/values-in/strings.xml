@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Katalog Film</string>
+    <string name="title_movies">Film</string>
+    <string name="title_tv_show">Serial Tv</string>
+    <string name="title_favorites">Favorit</string>
+    <string name="title_settings">Pengaturan</string>
+    <string name="tab_favorites_movies">Film</string>
+    <string name="tab_favorites_tv_show">Serial Tv</string>
+    <string name="contentDescription">Ini adalah gambar poster</string>
+    <string name="release_date">Tanggal rilis:</string>
+    <string name="year">Tahun</string>
+    <string name="overview">Deskripsi</string>
+    <string name="vote_average">Suara Rata-rata</string>
+    <string name="added_to_favorite">Ditambahkan ke Favorit</string>
+    <string name="removed_from_favorite">Dihapus dari Favorit</string>
+    <string name="search_title">Pencarian</string>
+    <string name="search_movies_hint">Pencarian Film</string>
+    <string name="search_tvshow_hint">Pencarian Serial Tv</string>
+    <string name="empty_text">TIDAK ADA DATA</string>
+    <string name="favorite_movies">FILM FAVORIT</string>
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="daily_reminder_note">Pengingat Harian, mengirimkan notifikasi ke pengguna untuk kembali ke Aplikasi Katalog Film</string>
+    <string name="daily_reminder_message">Sekarang adalah waktunya Anda menonton film, silahkan buka Aplikasi Katalog Film</string>
+    <string name="daily_reminder_enabled">Pengingat Harian diaktifkan</string>
+    <string name="daily_reminder_disabled">Pengingat Harian non-aktif</string>
+    <string name="release_today_reminder">Pengingat Film rilis</string>
+    <string name="movie_release_today">Film rilis hari ini</string>
+    <string name="release_today_reminder_note">Pengingat Film rilis, mengirimkan notifikasi ke pengguna semua film yang rilis hari ini</string>
+    <string name="release_today_enabled">Pengingat Film rilis diaktifkan</string>
+    <string name="release_today_disabled">Pengingat Film rilis non-aktif</string>
+    <string name="today_release">Rilis hari ini: </string>
+    <string name="setting_language">Pengaturan Bahasa</string>
+    <string name="setting_language_note">Pengaturan bahasa aplikasi</string>
+</resources>

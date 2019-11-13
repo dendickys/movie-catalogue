@@ -19,12 +19,16 @@
     <string name="empty_text">NO DATA</string>
     <string name="favorite_movies">FAVORITE MOVIES</string>
     <string name="daily_reminder">Daily Reminder</string>
-    <string name="daily_reminder_note">Daily Reminder, mengirimkan notifikasi ke pengguna untuk kembali ke Aplikasi Movie Catalogue</string>
-    <string name="daily_reminder_message">Sekarang adalah waktunya Anda menonton film, silahkan buka Aplikasi Movie Catalogue</string>
+    <string name="daily_reminder_note">Daily Reminder, send notifications to users to return to the Movie Catalogue Application</string>
+    <string name="daily_reminder_message">Now is the time for you to watch a movie, please open the Movie Catalogue Application</string>
     <string name="daily_reminder_enabled">Daily Reminder Enabled</string>
     <string name="daily_reminder_disabled">Daily Reminder Disabled</string>
     <string name="release_today_reminder">Release Today Reminder</string>
-    <string name="release_today_reminder_note">Release Today Reminder, mengirimkan notifikasi ke pengguna semua film yang rilis hari ini</string>
+    <string name="movie_release_today">Movie Release Today</string>
+    <string name="release_today_reminder_note">Release Today Reminder, send notifications to users of all films released today</string>
     <string name="release_today_enabled">Release Today Reminder Enabled</string>
     <string name="release_today_disabled">Release Today Reminder Disabled</string>
+    <string name="today_release">Today release: </string>
+    <string name="setting_language">Setting Language</string>
+    <string name="setting_language_note">Application language settings</string>
 </resources>

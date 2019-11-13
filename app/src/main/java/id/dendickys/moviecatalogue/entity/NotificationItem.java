@@ -1,21 +1,21 @@
 package id.dendickys.moviecatalogue.entity;
 
 public class NotificationItem {
-    private int id;
+    private String id;
     private String title;
     private String overview;
 
-    public NotificationItem(int id, String title, String overview) {
+    public NotificationItem(String id, String title, String overview) {
         this.id = id;
         this.title = title;
         this.overview = overview;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

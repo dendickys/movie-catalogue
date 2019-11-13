@@ -13,9 +13,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!--<style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/img_splash</item>
-    </style>-->
+    </style>
 
     <style name="TextContent" parent="@style/TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
