@@ -23,11 +23,9 @@ import static id.dendickys.moviecatalogue.helper.Constant.BASE_URL_POSTER;
 public class FavTvShowAdapter extends RecyclerView.Adapter<FavTvShowAdapter.FavTvShowViewHolder> {
 
     private List<FavTvShow> favTvShows;
-    private Context mContext;
 
-    public FavTvShowAdapter(List<FavTvShow> favTvShows, Context context) {
+    public FavTvShowAdapter(List<FavTvShow> favTvShows) {
         this.favTvShows = favTvShows;
-        this.mContext = context;
     }
 
     @NonNull

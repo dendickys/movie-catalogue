@@ -32,7 +32,6 @@ public class TvShowFavFragment extends Fragment {
     public TvShowFavFragment() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,7 +59,7 @@ public class TvShowFavFragment extends Fragment {
 
     private void getFavTvShow() {
         List<FavTvShow> favTvShows = favTvShowDb.favTvShowDao().getAllFavTvShow();
-        FavTvShowAdapter favTvShowAdapter = new FavTvShowAdapter(favTvShows, getContext());
+        FavTvShowAdapter favTvShowAdapter = new FavTvShowAdapter(favTvShows);
         recyclerView.setAdapter(favTvShowAdapter);
     }
 }

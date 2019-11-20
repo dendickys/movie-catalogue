@@ -36,8 +36,6 @@ import static id.dendickys.moviecatalogue.ui.activity.MainActivity.favMoviesDb;
 public class MoviesFavFragment extends Fragment {
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
-    private FavMoviesAdapter favMoviesAdapter;
-    private static final String EXTRA_STATE = "EXTRA_STATE";
 
     public MoviesFavFragment() {
     }
@@ -56,37 +54,7 @@ public class MoviesFavFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         setUpRecyclerView();
         getFavMovies();
-
-
     }
-
-    /*@Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(EXTRA_STATE, favMoviesAdapter.getFavMovies());
-    }
-
-    @Override
-    public void preExecute() {
-        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.VISIBLE);
-            }
-        });
-    }
-
-    @Override
-    public void postExecute(Cursor cursor) {
-        progressBar.setVisibility(View.INVISIBLE);
-        List<FavMovies> favMovies = favMoviesDb.favMoviesDao().getAllFavMovies();
-        if (favMovies.size() > 0) {
-            favMoviesAdapter.setListFavMovies(favMovies);
-        } else {
-            favMoviesAdapter.setListFavMovies(new ArrayList<FavMovies>());
-            Snackbar.make(recyclerView, "Tidak ada data saat ini", Snackbar.LENGTH_SHORT).show();
-        }
-    }*/
 
     private static class LoadFavMovieAsync extends AsyncTask<Void, Void, Cursor> {
         private final WeakReference<Context> weakContext;
@@ -145,7 +113,7 @@ public class MoviesFavFragment extends Fragment {
     private void getFavMovies() {
         List<FavMovies> favMovies = favMoviesDb.favMoviesDao().getAllFavMovies();
         progressBar.setVisibility(View.INVISIBLE);
-        favMoviesAdapter = new FavMoviesAdapter(favMovies);
+        FavMoviesAdapter favMoviesAdapter = new FavMoviesAdapter(favMovies);
         recyclerView.setAdapter(favMoviesAdapter);
     }
 }

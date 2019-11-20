@@ -54,6 +54,11 @@ public class FavoriteMovieWidget extends AppWidgetProvider {
             if (intent.getAction().equals(TOAST_ACTION)) {
                 String title = intent.getStringExtra(EXTRA_ITEM);
                 Toast.makeText(context, title, Toast.LENGTH_SHORT).show();
+
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                ComponentName thisWidget = new ComponentName(context, StackWidgetService.class);
+                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.stack_view);
             }
         }
     }

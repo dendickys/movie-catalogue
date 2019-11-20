@@ -27,22 +27,6 @@ public class FavMoviesAdapter extends RecyclerView.Adapter<FavMoviesAdapter.FavM
         this.favMovies = favMovies;
     }
 
-    /*public FavMoviesAdapter(Context context) {
-        this.context = context;
-    }
-
-    public ArrayList<FavMovies> getFavMovies() {
-        return favMovies;
-    }
-
-    public void setListFavMovies(List<FavMovies> listFavMovies) {
-        if (listFavMovies.size() > 0) {
-            this.favMovies.clear();
-        }
-        this.favMovies.addAll(listFavMovies);
-        notifyDataSetChanged();
-    }*/
-
     @NonNull
     @Override
     public FavMoviesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -57,7 +57,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
                 Bitmap bitmap = Glide.with(mContext)
                         .asBitmap()
                         .load(BASE_URL_POSTER + "w185/" + favMovies.getPoster_path())
-                        .submit(480, 640)
+                        .submit(250, 550)
                         .get();
 
                 rv.setImageViewBitmap(R.id.imageView, bitmap);
